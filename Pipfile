@@ -11,6 +11,8 @@ gunicorn = "*"
 djoser = "*"
 django-cors-headers = "*"
 whitenoise = "*"
+djangorestframework = "*"
+pillow = "*"
 
 [dev-packages]
 

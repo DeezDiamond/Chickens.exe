@@ -42,7 +42,9 @@ INSTALLED_APPS = [
 
     'corsheaders',
     'djoser', 
-
+    'chickens',
+    'rest_framework',
+    'rest_framework.authtoken',
     'users',
 ]
 
@@ -123,3 +125,33 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+AUTH_USER_MODEL='users.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # What we'll use for our API
+        'rest_framework.authentication.TokenAuthentication',
+        # What we'll use for the browseable API
+        'rest_framework.authentication.SessionAuthentication',
+        # Basic Authentication should be removed in production
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
+
+DJOSER = {
+    'LOGIN_FIELD': 'email',
+    'USER_CREATE_PASSWORD_RETYPE': True,
+    'SERIALIZERS': {
+        'user_create': 'users.serializers.UserCreateSerializer',
+        'user': 'users.serializers.UserCreateSerializer'
+    }
+}
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
+MEDIA_URL = '/media/'
